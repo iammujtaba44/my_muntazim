@@ -39,13 +39,6 @@ class LoginScreen1 extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: this.primaryColor),
                   ),
-                  Text(
-                    "Login Screen 1",
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: this.primaryColor),
-                  ),
                 ],
               ),
             ),
@@ -189,55 +182,55 @@ class LoginScreen1 extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 10.0),
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: FlatButton(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    splashColor: Color(0xFF3B5998),
-                    color: Color(0xff3B5998),
-                    child: new Row(
-                      children: <Widget>[
-                        new Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            "LOGIN WITH FACEBOOK",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        new Expanded(
-                          child: Container(),
-                        ),
-                        new Transform.translate(
-                          offset: Offset(15.0, 0.0),
-                          child: new Container(
-                            padding: const EdgeInsets.all(5.0),
-                            child: FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(28.0)),
-                              splashColor: Colors.white,
-                              color: Colors.white,
-                              child: Icon(
-                                const IconData(0xea90, fontFamily: 'icomoon'),
-                                color: Color(0xff3b5998),
-                              ),
-                              onPressed: () => {},
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    onPressed: () => {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 10.0),
+          //   padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          //   child: new Row(
+          //     children: <Widget>[
+          //       new Expanded(
+          //         child: FlatButton(
+          //           shape: new RoundedRectangleBorder(
+          //               borderRadius: new BorderRadius.circular(30.0)),
+          //           splashColor: Color(0xFF3B5998),
+          //           color: Color(0xff3B5998),
+          //           child: new Row(
+          //             children: <Widget>[
+          //               new Padding(
+          //                 padding: const EdgeInsets.only(left: 20.0),
+          //                 child: Text(
+          //                   "LOGIN WITH FACEBOOK",
+          //                   style: TextStyle(color: Colors.white),
+          //                 ),
+          //               ),
+          //               new Expanded(
+          //                 child: Container(),
+          //               ),
+          //               new Transform.translate(
+          //                 offset: Offset(15.0, 0.0),
+          //                 child: new Container(
+          //                   padding: const EdgeInsets.all(5.0),
+          //                   child: FlatButton(
+          //                     shape: new RoundedRectangleBorder(
+          //                         borderRadius:
+          //                             new BorderRadius.circular(28.0)),
+          //                     splashColor: Colors.white,
+          //                     color: Colors.white,
+          //                     child: Icon(
+          //                       const IconData(0xea90, fontFamily: 'icomoon'),
+          //                       color: Color(0xff3b5998),
+          //                     ),
+          //                     onPressed: () => {},
+          //                   ),
+          //                 ),
+          //               )
+          //             ],
+          //           ),
+          //           onPressed: () => {},
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Container(
             margin: const EdgeInsets.only(top: 20.0),
             padding: const EdgeInsets.only(left: 20.0, right: 20.0),

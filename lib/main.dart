@@ -17,7 +17,7 @@ class myapp extends StatelessWidget {
           // home: LoginScreen(),
           home: LoginScreen1(
             key: key,
-            primaryColor: Colors.blue,
+            primaryColor: Color.fromRGBO(40, 105, 93, 10),
             backgroundColor: Colors.white,
             backgroundImage: AssetImage('assets/bloom.png'),
           )
