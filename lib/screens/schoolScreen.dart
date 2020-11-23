@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_muntazim/screens/sessionList.dart';
+import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
-import 'package:my_muntazim/services/studentModel.dart';
+import 'file:///I:/DTS/my_muntazim/lib/services/models/studentModel.dart';
 
 class SchoolScreen extends StatefulWidget {
   @override
@@ -35,47 +37,13 @@ class SchoolScreenState extends State<SchoolScreen> {
     'talk'
   ];
 
-  var _getStatus;
-  int _statusCode;
-
-  Future<StudentModel> getStudentList(String parentID) async {
-    final String apiUrl =
-        "http://mohidtest.dtssandbox.com/il/chicago/tmo/muntazim/api/parent/students/${parentID}";
-
-    final response = await http
-        .get(apiUrl, headers: {'access-token': parentAuthChk.data.accessToken});
-
-    _statusCode = response.statusCode;
-    if (response.statusCode == 200) {
-      final String responseString = response.body;
-      _getStatus = json.decode(responseString);
-      if (_getStatus['message'] == "success" || _getStatus['status'] == 200) {
-        return studentModelFromJson(responseString);
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
-
-  getter() {
-    getStudentList(parentAuthChk.data.parentId).then((value) {
-      setState(() {
-        studentModel = value;
-
-        print(studentModel.message);
-      });
-    });
-  }
-
   void initState() {
     // getter();
     super.initState();
   }
 
   Widget _mylistview() {
-    return studentModel == null
+    return Constants.studentsDataModel == null
         ? Center(
             child: SpinKitChasingDots(
               size: 50.0,
@@ -83,7 +51,13 @@ class SchoolScreenState extends State<SchoolScreen> {
             ),
           )
         : ListView.builder(
-            itemCount: studentModel.data.studentsInfo.studentsList.length,
+            itemCount: Constants
+                .studentsDataModel
+                .data
+                .studentsInfo
+                .studentsList[widget.Stdi]
+                .schoolsList
+                .length, //studentModel.data.studentsInfo.studentsList.length,
             itemBuilder: (context, index) {
               return Container(
                 margin:
@@ -104,24 +78,38 @@ class SchoolScreenState extends State<SchoolScreen> {
                       backgroundColor: Color.fromRGBO(228, 229, 230, 10),
                       child: IconButton(
                         icon: Icon(
-                          Icons.person_outline,
+                          Icons.school_outlined,
                           size: 32.0,
                         ),
                       ),
                     ),
                   ),
                   title: Text(
-                    studentModel.data.studentsInfo.studentsList[widget.Stdi]
-                        .schoolsList[index].schoolName,
+                    Constants
+                        .studentsDataModel
+                        .data
+                        .studentsInfo
+                        .studentsList[widget.Stdi]
+                        .schoolsList[index]
+                        .schoolName,
+                    // studentModel.data.studentsInfo.studentsList[widget.Stdi]
+                    //   .schoolsList[index].schoolName,
                     style: TextStyle(
                         color: Color.fromRGBO(5, 115, 106, 10),
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    Fluttertoast.showToast(
-                        msg: "Student ${index} tapped",
-                        toastLength: Toast.LENGTH_SHORT);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SessionScreen(
+                                  schoolIndex: index,
+                                  studentIndex: widget.Stdi,
+                                )));
+                    // Fluttertoast.showToast(
+                    //     msg: "Student ${index} tapped",
+                    //     toastLength: Toast.LENGTH_SHORT);
                   },
                 ),
               );
@@ -151,7 +139,7 @@ class SchoolScreenState extends State<SchoolScreen> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(parentAuthChk.data.displayAs,
+                  Text(Constants.loginModel.data.displayAs,
                       style: TextStyle(
                           fontWeight: FontWeight.w900, fontSize: 20.0))
                 ],

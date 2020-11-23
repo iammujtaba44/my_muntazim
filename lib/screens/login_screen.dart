@@ -6,10 +6,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_muntazim/components/RoundedButton.dart';
-import 'package:my_muntazim/constants.dart';
+import 'file:///I:/DTS/my_muntazim/lib/utils/constants.dart';
 import 'package:my_muntazim/screens/navigation_menu.dart';
+import 'package:my_muntazim/services/Constants.dart';
+import 'package:my_muntazim/services/GetMethods.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
-import 'package:my_muntazim/services/parentAuthModel.dart';
+import 'file:///I:/DTS/my_muntazim/lib/services/models/parentAuthModel.dart';
+import 'package:my_muntazim/utils/CustomToast.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'loginScreen';
@@ -24,34 +27,34 @@ class LoginScreenState extends State<LoginScreen> {
   var passwordController = TextEditingController();
   var usernameController = TextEditingController();
 
-  ParentAuthModel _parentAuth;
-  Map<String, dynamic> json1;
-
-  int _responseCode;
-
-  Future<ParentAuthModel> checkAuth(String username, String password) async {
-    final String apiUrl =
-        "http://mohidtest.dtssandbox.com/il/chicago/tmo/muntazim/api/parent/authenticate";
-
-    final response = await http
-        .post(apiUrl, body: {"username": username, "password": password});
-
-    setState(() {
-      _responseCode = response.statusCode;
-    });
-
-    if (response.statusCode == 200) {
-      final String responseString = response.body;
-      json1 = json.decode(responseString);
-      if (json1['status'] == 200) {
-        return parentAuthModelFromJson(responseString);
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  }
+  // ParentAuthModel _parentAuth;
+  // Map<String, dynamic> json1;
+  //
+  // int _responseCode;
+  //
+  // Future<ParentAuthModel> checkAuth(String username, String password) async {
+  //   final String apiUrl =
+  //       "http://mohidtest.dtssandbox.com/il/chicago/tmo/muntazim/api/parent/authenticate";
+  //
+  //   final response = await http
+  //       .post(apiUrl, body: {"username": username, "password": password});
+  //
+  //   setState(() {
+  //     _responseCode = response.statusCode;
+  //   });
+  //
+  //   if (response.statusCode == 200) {
+  //     final String responseString = response.body;
+  //     json1 = json.decode(responseString);
+  //     if (json1['status'] == 200) {
+  //       return parentAuthModelFromJson(responseString);
+  //     } else {
+  //       return null;
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -125,31 +128,49 @@ class LoginScreenState extends State<LoginScreen> {
                     final String username = usernameController.text;
                     final String password = passwordController.text;
 
-                    final ParentAuthModel parentAuth =
-                        await checkAuth(username, password).whenComplete(() {
-                      EasyLoading.dismiss();
-                    });
+                    bool result = await GetMethods.loginInit(
+                        username: username, password: password);
+                    EasyLoading.dismiss();
 
-                    setState(() {
-                      // _parentAuth = parentAuth;
-                      parentAuthChk = parentAuth;
-                    });
+                    if (result) {
+                      EasyLoading.showSuccess(Constants.loginModel.message);
+                      //Navigator.pushNamed(context, NavigationMenu.id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NavigationMenu(
+                                    index: 0,
+                                  )));
+                    } else
+                      CustomToast(text: Constants.loginModel.message);
 
-                    if (parentAuthChk != null) {
-                      Fluttertoast.showToast(
-                          msg: parentAuthChk.message,
-                          toastLength: Toast.LENGTH_SHORT);
-                      EasyLoading.showSuccess(parentAuthChk.message);
-                      Navigator.pushNamed(context, NavigationMenu.id);
-                    } else if (_responseCode > 200 || _responseCode < 200) {
-                      Fluttertoast.showToast(
-                          msg: "Error fetching data : ${_responseCode}",
-                          toastLength: Toast.LENGTH_SHORT);
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: json1['message'],
-                          toastLength: Toast.LENGTH_SHORT);
-                    }
+                    // final ParentAuthModel parentAuth =
+                    //     await checkAuth(username, password).whenComplete(() {
+                    //   EasyLoading.dismiss();
+                    // });
+                    //
+                    //
+                    //
+                    // setState(() {
+                    //   // _parentAuth = parentAuth;
+                    //   parentAuthChk = parentAuth;
+                    // });
+                    //
+                    // if (parentAuthChk != null) {
+                    //   Fluttertoast.showToast(
+                    //       msg: parentAuthChk.message,
+                    //       toastLength: Toast.LENGTH_SHORT);
+                    //   EasyLoading.showSuccess(parentAuthChk.message);
+                    //   Navigator.pushNamed(context, NavigationMenu.id);
+                    // } else if (_responseCode > 200 || _responseCode < 200) {
+                    //   Fluttertoast.showToast(
+                    //       msg: "Error fetching data : ${_responseCode}",
+                    //       toastLength: Toast.LENGTH_SHORT);
+                    // } else {
+                    //   Fluttertoast.showToast(
+                    //       msg: json1['message'],
+                    //       toastLength: Toast.LENGTH_SHORT);
+                    // }
                   },
                 )
               ],

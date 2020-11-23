@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_muntazim/screens/schoolScreen.dart';
+import 'package:my_muntazim/services/Constants.dart';
+import 'package:my_muntazim/services/GetMethods.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
-import 'package:my_muntazim/services/studentModel.dart';
+import 'file:///I:/DTS/my_muntazim/lib/services/models/studentModel.dart';
 
 class StudentsScreen extends StatefulWidget {
   @override
@@ -36,44 +38,65 @@ class StudentsScreenState extends State<StudentsScreen> {
   var _getStatus;
   int _statusCode;
 
-  Future<StudentModel> getStudentList(String parentID) async {
-    final String apiUrl =
-        "http://mohidtest.dtssandbox.com/il/chicago/tmo/muntazim/api/parent/students/${parentID}";
+  // Future<StudentModel> getStudentList(String parentID) async {
+  //   final String apiUrl =
+  //       "http://mohidtest.dtssandbox.com/il/chicago/tmo/muntazim/api/parent/students/${parentID}";
+  //
+  //   final response = await http
+  //       .get(apiUrl, headers: {'access-token': parentAuthChk.data.accessToken});
+  //
+  //   _statusCode = response.statusCode;
+  //   if (response.statusCode == 200) {
+  //     final String responseString = response.body;
+  //     _getStatus = json.decode(responseString);
+  //     if (_getStatus['message'] == "success" || _getStatus['status'] == 200) {
+  //       return studentModelFromJson(responseString);
+  //     } else {
+  //       return null;
+  //     }
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
-    final response = await http
-        .get(apiUrl, headers: {'access-token': parentAuthChk.data.accessToken});
+  // getter() {
+  //   getStudentList(parentAuthChk.data.parentId).then((value) {
+  //     setState(() {
+  //       studentModel = value;
+  //
+  //       print(studentModel.message);
+  //     });
+  //   });
+  // }
 
-    _statusCode = response.statusCode;
-    if (response.statusCode == 200) {
-      final String responseString = response.body;
-      _getStatus = json.decode(responseString);
-      if (_getStatus['message'] == "success" || _getStatus['status'] == 200) {
-        return studentModelFromJson(responseString);
-      } else {
-        return null;
-      }
+  bool hasData = false;
+  getData() async {
+    bool results = await GetMethods.studentsInit(
+        parentId: Constants.loginModel.data.parentId);
+
+    if (results) {
+      if (mounted)
+        setState(() {
+          hasData = true;
+        });
     } else {
-      return null;
+      if (mounted)
+        setState(() {
+          hasData = false;
+        });
     }
-  }
 
-  getter() {
-    getStudentList(parentAuthChk.data.parentId).then((value) {
-      setState(() {
-        studentModel = value;
-
-        print(studentModel.message);
-      });
-    });
+    print(Constants.studentsDataModel.message);
   }
 
   void initState() {
-    getter();
+    //getter();
+    getData();
     super.initState();
   }
 
   Widget _mylistview() {
-    return studentModel == null
+    return !hasData
         ? Center(
             child: SpinKitChasingDots(
               size: 50.0,
@@ -81,7 +104,12 @@ class StudentsScreenState extends State<StudentsScreen> {
             ),
           )
         : ListView.builder(
-            itemCount: studentModel.data.studentsInfo.studentsList.length,
+            itemCount: Constants
+                .studentsDataModel
+                .data
+                .studentsInfo
+                .studentsList
+                .length, //studentModel.data.studentsInfo.studentsList.length,
             itemBuilder: (context, index) {
               return Container(
                 margin:
@@ -109,8 +137,10 @@ class StudentsScreenState extends State<StudentsScreen> {
                     ),
                   ),
                   title: Text(
-                    studentModel
-                        .data.studentsInfo.studentsList[index].studentName,
+                    Constants.studentsDataModel.data.studentsInfo
+                        .studentsList[index].studentName,
+                    // studentModel
+                    //   .data.studentsInfo.studentsList[index].studentName,
                     style: TextStyle(
                         color: Color.fromRGBO(5, 115, 106, 10),
                         fontSize: 18.0,
@@ -153,7 +183,7 @@ class StudentsScreenState extends State<StudentsScreen> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(parentAuthChk.data.displayAs,
+                  Text(Constants.loginModel.data.displayAs,
                       style: TextStyle(
                           fontWeight: FontWeight.w900, fontSize: 20.0))
                 ],

@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_muntazim/components/CustomListView.dart';
 import 'package:my_muntazim/screens/navigation_menu.dart';
+import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
 
 class Home extends StatefulWidget {
@@ -45,7 +46,7 @@ class HomeState extends State<Home> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    Text(parentAuthChk.data.displayAs,
+                    Text(Constants.loginModel.data.displayAs,
                         style: TextStyle(
                             fontWeight: FontWeight.w900, fontSize: 20.0))
                   ],

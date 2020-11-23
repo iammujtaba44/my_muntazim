@@ -33,7 +33,7 @@ class LoginScreen1 extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "DEMO",
+                    "MUNTAZIM",
                     style: TextStyle(
                         fontSize: 50.0,
                         fontWeight: FontWeight.bold,

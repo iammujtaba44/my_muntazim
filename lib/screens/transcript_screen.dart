@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
 
 class TranscriptScreen extends StatefulWidget {
@@ -69,7 +70,7 @@ class TranscriptScreenState extends State<TranscriptScreen> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(parentAuthChk.data.displayAs,
+                  Text(Constants.loginModel.data.displayAs,
                       style: TextStyle(
                           fontWeight: FontWeight.w900, fontSize: 20.0))
                 ],
