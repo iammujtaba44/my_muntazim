@@ -7,6 +7,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
+import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
 
 class AttendanceScreen extends StatefulWidget {
@@ -187,7 +188,7 @@ class AttendanceScreenState extends State<AttendanceScreen> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text("Raheel zain",
+                  Text(Constants.loginModel.data.displayAs,
                       style: TextStyle(
                           fontWeight: FontWeight.w900, fontSize: 20.0))
                 ],

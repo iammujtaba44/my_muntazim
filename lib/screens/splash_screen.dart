@@ -21,8 +21,12 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 5),
-        () => Navigator.pushNamed(context, SignInScreen.id));
+    Timer(
+        Duration(seconds: 5),
+        () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignInScreen())));
+
+    // Navigator.pushNamed(context, SignInScreen.id)
   }
 
   Widget build(BuildContext context) {
@@ -69,11 +73,11 @@ class SplashScreenState extends State<SplashScreen> {
                                 radius: 100.0,
                               )),
                         ),
-                        Container(
-                            child: Image.asset(
-                                'assets/icon/Logo_Muntazim_Color.png'),
-                            height: 150.0 //_animation2.value * 100 //60.0,
-                            ),
+                        // Container(
+                        //     child: Image.asset(
+                        //         'assets/icon/Logo_Muntazim_Color.png'),
+                        //     height: 150.0 //_animation2.value * 100 //60.0,
+                        //     ),
                       ],
                     ),
                   ),

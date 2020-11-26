@@ -9,7 +9,7 @@ import 'package:my_muntazim/screens/schoolScreen.dart';
 import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/GetMethods.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
-import 'file:///I:/DTS/my_muntazim/lib/services/models/studentModel.dart';
+
 
 class StudentsScreen extends StatefulWidget {
   @override

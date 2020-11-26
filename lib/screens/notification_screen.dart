@@ -2,6 +2,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -96,7 +97,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  Text(parentAuthChk.data.displayAs,
+                  Text(Constants.loginModel.data.displayAs,
                       style: TextStyle(
                           fontWeight: FontWeight.w900, fontSize: 20.0))
                 ],

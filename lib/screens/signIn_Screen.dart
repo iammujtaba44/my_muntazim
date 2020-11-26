@@ -36,10 +36,15 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
                 RoundedButton(
                     onPeressed: () {
-                      Fluttertoast.showToast(
-                          msg: "Sign in Pressed",
-                          toastLength: Toast.LENGTH_SHORT);
-                      Navigator.pushNamed(context, LoginScreen.id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+
+                      // Fluttertoast.showToast(
+                      //     msg: "Sign in Pressed",
+                      //     toastLength: Toast.LENGTH_SHORT);
+                      // Navigator.pushNamed(context, LoginScreen.id);
                     },
                     title: "SIGN IN",
                     color: Color.fromRGBO(1, 116, 111, 10)),

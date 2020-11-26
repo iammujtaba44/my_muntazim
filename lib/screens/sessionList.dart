@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_muntazim/services/Constants.dart';
 import 'package:my_muntazim/services/modelPasser.dart';
-import 'file:///I:/DTS/my_muntazim/lib/services/models/studentModel.dart';
+import 'package:my_muntazim/services/models/StudentsDataModel.dart';
 
 class SessionScreen extends StatefulWidget {
   @override
@@ -99,15 +99,89 @@ class SessionScreenState extends State<SessionScreen> {
                           Padding(
                               padding: const EdgeInsets.only(
                                   right: 15.0, left: 15.0),
-                              child: ListTile(
-                                hoverColor: Color.fromRGBO(228, 229, 230, 10),
+                              child: ExpansionTile(
+                                tilePadding:
+                                    EdgeInsets.only(right: 15, left: 15),
                                 title: Text(
                                   "Grades",
                                   style: TextStyle(
-                                    color: Color.fromRGBO(5, 115, 106, 10),
-                                    fontSize: 18.0,
-                                  ),
+                                      color: Color.fromRGBO(5, 115, 106, 10),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
+                                children: List.generate(
+                                    Constants
+                                        .studentsDataModel
+                                        .data
+                                        .studentsInfo
+                                        .studentsList[widget.studentIndex]
+                                        .schoolsList[widget.schoolIndex]
+                                        .sessionsList
+                                        .previousAcademicSession
+                                        .grades
+                                        .length, (index) {
+                                  return ExpansionTile(
+                                    title: Text(
+                                      "${Constants.studentsDataModel.data.studentsInfo.studentsList[widget.studentIndex].schoolsList[widget.schoolIndex].sessionsList.previousAcademicSession.grades[index].title}",
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(5, 115, 106, 10),
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    children: [
+                                      _getRow(
+                                          firstText: "Roll number",
+                                          secondText: Constants
+                                              .studentsDataModel
+                                              .data
+                                              .studentsInfo
+                                              .studentsList[widget.studentIndex]
+                                              .schoolsList[widget.schoolIndex]
+                                              .sessionsList
+                                              .previousAcademicSession
+                                              .grades[index]
+                                              .rollNumber),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Enrollment status",
+                                          secondText: Constants
+                                                      .studentsDataModel
+                                                      .data
+                                                      .studentsInfo
+                                                      .studentsList[
+                                                          widget.studentIndex]
+                                                      .schoolsList[
+                                                          widget.schoolIndex]
+                                                      .sessionsList
+                                                      .previousAcademicSession
+                                                      .grades[index]
+                                                      .enrollmentStatus
+                                                      .index ==
+                                                  0
+                                              ? "Enrolled"
+                                              : "UnEnrolled"),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Application status",
+                                          secondText: applicationStatusValues
+                                              .map.keys
+                                              .elementAt(Constants
+                                                  .studentsDataModel
+                                                  .data
+                                                  .studentsInfo
+                                                  .studentsList[
+                                                      widget.studentIndex]
+                                                  .schoolsList[
+                                                      widget.schoolIndex]
+                                                  .sessionsList
+                                                  .previousAcademicSession
+                                                  .grades[index]
+                                                  .applicationStatus
+                                                  .index)),
+                                    ],
+                                  );
+                                }),
                               ))
                         ],
                       )
@@ -169,15 +243,89 @@ class SessionScreenState extends State<SessionScreen> {
                           Padding(
                               padding: const EdgeInsets.only(
                                   right: 15.0, left: 15.0),
-                              child: ListTile(
-                                hoverColor: Color.fromRGBO(228, 229, 230, 10),
+                              child: ExpansionTile(
+                                tilePadding:
+                                    EdgeInsets.only(right: 15, left: 15),
                                 title: Text(
                                   "Grades",
                                   style: TextStyle(
-                                    color: Color.fromRGBO(5, 115, 106, 10),
-                                    fontSize: 18.0,
-                                  ),
+                                      color: Color.fromRGBO(5, 115, 106, 10),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
+                                children: List.generate(
+                                    Constants
+                                        .studentsDataModel
+                                        .data
+                                        .studentsInfo
+                                        .studentsList[widget.studentIndex]
+                                        .schoolsList[widget.schoolIndex]
+                                        .sessionsList
+                                        .currentAcademicSession
+                                        .grades
+                                        .length, (index) {
+                                  return ExpansionTile(
+                                    title: Text(
+                                      "${Constants.studentsDataModel.data.studentsInfo.studentsList[widget.studentIndex].schoolsList[widget.schoolIndex].sessionsList.currentAcademicSession.grades[index].title}",
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(5, 115, 106, 10),
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    children: [
+                                      _getRow(
+                                          firstText: "Roll number",
+                                          secondText: Constants
+                                              .studentsDataModel
+                                              .data
+                                              .studentsInfo
+                                              .studentsList[widget.studentIndex]
+                                              .schoolsList[widget.schoolIndex]
+                                              .sessionsList
+                                              .currentAcademicSession
+                                              .grades[index]
+                                              .rollNumber),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Enrollment status",
+                                          secondText: Constants
+                                                      .studentsDataModel
+                                                      .data
+                                                      .studentsInfo
+                                                      .studentsList[
+                                                          widget.studentIndex]
+                                                      .schoolsList[
+                                                          widget.schoolIndex]
+                                                      .sessionsList
+                                                      .currentAcademicSession
+                                                      .grades[index]
+                                                      .enrollmentStatus
+                                                      .index ==
+                                                  0
+                                              ? "Enrolled"
+                                              : "UnEnrolled"),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Application status",
+                                          secondText: applicationStatusValues
+                                              .map.keys
+                                              .elementAt(Constants
+                                                  .studentsDataModel
+                                                  .data
+                                                  .studentsInfo
+                                                  .studentsList[
+                                                      widget.studentIndex]
+                                                  .schoolsList[
+                                                      widget.schoolIndex]
+                                                  .sessionsList
+                                                  .currentAcademicSession
+                                                  .grades[index]
+                                                  .applicationStatus
+                                                  .index))
+                                    ],
+                                  );
+                                }),
                               ))
                         ],
                       )
@@ -239,15 +387,89 @@ class SessionScreenState extends State<SessionScreen> {
                           Padding(
                               padding: const EdgeInsets.only(
                                   right: 15.0, left: 15.0),
-                              child: ListTile(
-                                hoverColor: Color.fromRGBO(228, 229, 230, 10),
+                              child: ExpansionTile(
+                                tilePadding:
+                                    EdgeInsets.only(right: 15, left: 15),
                                 title: Text(
                                   "Grades",
                                   style: TextStyle(
-                                    color: Color.fromRGBO(5, 115, 106, 10),
-                                    fontSize: 18.0,
-                                  ),
+                                      color: Color.fromRGBO(5, 115, 106, 10),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
+                                children: List.generate(
+                                    Constants
+                                        .studentsDataModel
+                                        .data
+                                        .studentsInfo
+                                        .studentsList[widget.studentIndex]
+                                        .schoolsList[widget.schoolIndex]
+                                        .sessionsList
+                                        .nextAcademicSession
+                                        .grades
+                                        .length, (index) {
+                                  return ExpansionTile(
+                                    title: Text(
+                                      "${Constants.studentsDataModel.data.studentsInfo.studentsList[widget.studentIndex].schoolsList[widget.schoolIndex].sessionsList.nextAcademicSession.grades[index].title}",
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(5, 115, 106, 10),
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    children: [
+                                      _getRow(
+                                          firstText: "Roll number",
+                                          secondText: Constants
+                                              .studentsDataModel
+                                              .data
+                                              .studentsInfo
+                                              .studentsList[widget.studentIndex]
+                                              .schoolsList[widget.schoolIndex]
+                                              .sessionsList
+                                              .nextAcademicSession
+                                              .grades[index]
+                                              .rollNumber),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Enrollment status",
+                                          secondText: Constants
+                                                      .studentsDataModel
+                                                      .data
+                                                      .studentsInfo
+                                                      .studentsList[
+                                                          widget.studentIndex]
+                                                      .schoolsList[
+                                                          widget.schoolIndex]
+                                                      .sessionsList
+                                                      .nextAcademicSession
+                                                      .grades[index]
+                                                      .enrollmentStatus
+                                                      .index ==
+                                                  0
+                                              ? "Enrolled"
+                                              : "UnEnrolled"),
+                                      _getDivider(),
+                                      _getRow(
+                                          firstText: "Application status",
+                                          secondText: applicationStatusValues
+                                              .map.keys
+                                              .elementAt(Constants
+                                                  .studentsDataModel
+                                                  .data
+                                                  .studentsInfo
+                                                  .studentsList[
+                                                      widget.studentIndex]
+                                                  .schoolsList[
+                                                      widget.schoolIndex]
+                                                  .sessionsList
+                                                  .nextAcademicSession
+                                                  .grades[index]
+                                                  .applicationStatus
+                                                  .index))
+                                    ],
+                                  );
+                                }),
                               ))
                         ],
                       )
